@@ -1,13 +1,14 @@
 import React from 'react';
-import './App.css';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-    </div>
-  );
-}
+import Home from './scenes/Home';
+import { HOME_PATH } from './constants';
+
+const App = () => (
+  <Switch>
+    <Route exact path={HOME_PATH} component={Home} />
+    <Redirect to={HOME_PATH} />
+  </Switch>
+);
 
 export default App;
