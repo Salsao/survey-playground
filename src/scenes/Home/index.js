@@ -1,10 +1,14 @@
 import React from 'react';
 
+import hands from '../../assets/icons/hands.svg';
+import * as S from './styles';
+
 const Home = () => {
   return (
-    <div className="App">
-      <header className="App-header">Home</header>
-    </div>
+    <S.App>
+      <img src={hands} alt="logo" />
+      <S.LogoName>Survey Playground</S.LogoName>
+    </S.App>
   );
 };
 
