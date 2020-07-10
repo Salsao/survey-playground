@@ -7,6 +7,8 @@ export const App = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   margin-bottom: 50px;
+  align-self: center;
+  width: 200px;
 
   &:hover {
     cursor: pointer;
