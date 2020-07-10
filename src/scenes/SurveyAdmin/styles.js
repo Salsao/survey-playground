@@ -15,7 +15,6 @@ export const Box = styled.div`
 `;
 
 export const Title = styled.h3`
-  font-size: 18px;
   align-self: center;
 `;
 

@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from 'react';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
 import Loader from '../../components/Loader';

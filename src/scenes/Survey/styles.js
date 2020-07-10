@@ -15,29 +15,31 @@ export const Box = styled.div`
 `;
 
 export const Title = styled.h3`
-  font-size: 18px;
   align-self: center;
 `;
 
-export const DivForm = styled.div`
-  font-size: 18px;
-`;
-
-export const DivOption = styled.div`
-  display: flex;
-`;
-
-export const RemoveOption = styled.div`
-  margin-left: 15px;
+export const Description = styled.h6`
   align-self: center;
-  color: red;
-
-  &:hover {
-    cursor: pointer;
-  }
+  font-weight: 400;
 `;
 
 export const DivSubmit = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+
+export const DivShare = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const CopyIcon = styled.img`
+  margin-left: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
