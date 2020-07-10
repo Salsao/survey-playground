@@ -7,6 +7,10 @@ export const App = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   margin-bottom: 50px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const LogoName = styled.span`
