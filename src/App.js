@@ -17,7 +17,7 @@ const App = () => (
   <>
     <Header />
     <Switch>
-      <Route exact path={SURVEYS_PATH} component={Survey} />
+      <Route path={`${SURVEYS_PATH}/:id?`} component={Survey} />
       <Route exact path={HOME_PATH} component={Home} />
       <Redirect to={HOME_PATH} />
     </Switch>

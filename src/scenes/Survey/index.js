@@ -1,6 +1,7 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
@@ -13,6 +14,7 @@ const MAXIMUM_OPTIONS = 6;
 
 const Survey = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
   const isFetching = useSelector((state) => state.survey.isFetching);
   const [formSurvey, setFormSurvey] = useState({
     title: '',
@@ -22,6 +24,16 @@ const Survey = () => {
       { id: 2, answer: '' },
     ],
   });
+
+  useEffect(() => {
+    const onLoadPage = () => {
+      dispatch(surveyActions.getRequest(id));
+    };
+    if (id) {
+      onLoadPage();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleInputChange = (name, value) => {
     setFormSurvey({ ...formSurvey, [name]: value });
@@ -56,7 +68,7 @@ const Survey = () => {
     if (!formSurvey.description) {
       errors.push('description');
     }
-    formSurvey.options.map((option, index) => {
+    formSurvey.options.forEach((option, index) => {
       if (!option.answer) {
         errors.push(`option ${index + 1}`);
       }
