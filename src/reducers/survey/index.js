@@ -34,14 +34,14 @@ export default (state = initialState, action) => {
     case types.CREATE:
       return {
         ...state,
-        allIds: [...state.allIds, payload.id],
+        allIds: [...new Set([...state.allIds, payload.id])],
         byId: { ...state.byId, [payload.id]: payload },
         isFetching: false,
       };
     case types.SET:
       return {
         ...state,
-        allIds: [...state.allIds, payload.id],
+        allIds: [...new Set([...state.allIds, payload.id])],
         byId: { ...state.byId, [payload.id]: payload },
         isFetching: false,
       };
