@@ -1,14 +1,19 @@
 import React, { useState, Fragment } from 'react';
 import Form from 'react-bootstrap/Form';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
+import Loader from '../../components/Loader';
+import { actions as surveyActions } from '../../reducers/survey';
 import * as S from './styles';
 
 const MINIMUM_OPTIONS = 2;
 const MAXIMUM_OPTIONS = 6;
 
 const Survey = () => {
+  const dispatch = useDispatch();
+  const isFetching = useSelector((state) => state.survey.isFetching);
   const [formSurvey, setFormSurvey] = useState({
     title: '',
     description: '',
@@ -35,7 +40,7 @@ const Survey = () => {
     });
   };
 
-  const handleAddOption = (option) => {
+  const handleAddOption = () => {
     if (formSurvey.options.length === MAXIMUM_OPTIONS) {
       toast.error('The survey must have a maximum of 6 options');
       return;
@@ -43,8 +48,29 @@ const Survey = () => {
     setFormSurvey({ ...formSurvey, options: [...formSurvey.options, { id: formSurvey.options.length + 1, answer: '' }] });
   };
 
+  const onHandleSubmit = () => {
+    const errors = [];
+    if (!formSurvey.title) {
+      errors.push('title');
+    }
+    if (!formSurvey.description) {
+      errors.push('description');
+    }
+    formSurvey.options.map((option, index) => {
+      if (!option.answer) {
+        errors.push(`option ${index + 1}`);
+      }
+    });
+    if (errors.length) {
+      toast.error(`Please fill the remaining empty fields: ${errors.join(',')}`);
+      return;
+    }
+    dispatch(surveyActions.createRequest(formSurvey));
+  };
+
   return (
     <>
+      {isFetching && <Loader />}
       <S.Box>
         <S.Title>New survey</S.Title>
         <S.DivForm>
@@ -81,8 +107,8 @@ const Survey = () => {
                       onChange={(e) =>
                         setFormSurvey({
                           ...formSurvey,
-                          options: formSurvey.options.map((listOption) =>
-                            listOption.id === option.id ? { ...listOption, answer: e.currentTarget.value } : listOption
+                          options: formSurvey.options.map((opt) =>
+                            opt.id === option.id ? { ...opt, answer: e.currentTarget.value } : opt
                           ),
                         })
                       }
@@ -97,7 +123,7 @@ const Survey = () => {
               </Button>
             </Form.Group>
             <S.DivSubmit>
-              <Button variant="success" type="button">
+              <Button variant="success" type="button" onClick={onHandleSubmit}>
                 Submit
               </Button>
             </S.DivSubmit>

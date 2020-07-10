@@ -1,6 +1,6 @@
 import { all, fork } from 'redux-saga/effects';
-import watchUser from './user';
+import watchSurvey from './survey';
 
 export default function* () {
-  yield all([fork(watchUser)]);
+  yield all([fork(watchSurvey)]);
 }
