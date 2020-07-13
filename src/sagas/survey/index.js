@@ -6,13 +6,12 @@ import { SURVEYS_PATH } from '../../constants';
 function* create(action) {
   try {
     const {
-      payload: { formSurvey, history },
+      payload: { formSurvey, history }
     } = action;
     const response = yield call(post, formSurvey);
     yield put(surveyActions.create(response.data));
     history.push(`${SURVEYS_PATH}/${response.data.id}`);
   } catch (error) {
-    console.log(error);
     yield put(surveyActions.error(error));
   }
 }

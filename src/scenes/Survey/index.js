@@ -38,7 +38,7 @@ const Survey = () => {
       toast.error('Please fill the survey with your answer');
       return;
     }
-    // dispatch(surveyActions.postAnswerRequest(id));
+    dispatch(surveyActions.postAnswerRequest(id));
   };
 
   if (surveyError?.message) {

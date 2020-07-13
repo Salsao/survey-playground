@@ -15,21 +15,21 @@ const MAXIMUM_OPTIONS = 6;
 const SurveyAdmin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const isFetching = useSelector((state) => state.survey.isFetching);
+  const isFetching = useSelector(state => state.survey.isFetching);
   const [formSurvey, setFormSurvey] = useState({
     title: '',
     description: '',
     options: [
       { id: 1, answer: '' },
-      { id: 2, answer: '' },
-    ],
+      { id: 2, answer: '' }
+    ]
   });
 
   const handleInputChange = (name, value) => {
     setFormSurvey({ ...formSurvey, [name]: value });
   };
 
-  const handleRemoveOption = (option) => {
+  const handleRemoveOption = option => {
     if (formSurvey.options.length === MINIMUM_OPTIONS) {
       toast.error('The survey must have at least 2 options');
       return;
@@ -37,8 +37,8 @@ const SurveyAdmin = () => {
     setFormSurvey({
       ...formSurvey,
       options: formSurvey.options
-        .filter((optionList) => optionList.id !== option.id)
-        .map((optionList, index) => ({ ...optionList, id: index + 1 })),
+        .filter(optionList => optionList.id !== option.id)
+        .map((optionList, index) => ({ ...optionList, id: index + 1 }))
     });
   };
 
@@ -83,7 +83,7 @@ const SurveyAdmin = () => {
                 type="text"
                 placeholder="Title of the survey"
                 maxLength={50}
-                onChange={(e) => handleInputChange('title', e.currentTarget.value)}
+                onChange={e => handleInputChange('title', e.currentTarget.value)}
               />
             </Form.Group>
 
@@ -93,7 +93,7 @@ const SurveyAdmin = () => {
                 type="text"
                 placeholder="Give a nice description for your survey"
                 maxLength={100}
-                onChange={(e) => handleInputChange('description', e.currentTarget.value)}
+                onChange={e => handleInputChange('description', e.currentTarget.value)}
               />
             </Form.Group>
             <Form.Group controlId="formOptions">
@@ -106,12 +106,12 @@ const SurveyAdmin = () => {
                       placeholder={`Option ${index + 1}`}
                       maxLength={25}
                       value={option.answer}
-                      onChange={(e) =>
+                      onChange={e =>
                         setFormSurvey({
                           ...formSurvey,
-                          options: formSurvey.options.map((opt) =>
+                          options: formSurvey.options.map(opt =>
                             opt.id === option.id ? { ...opt, answer: e.currentTarget.value } : opt
-                          ),
+                          )
                         })
                       }
                     />
