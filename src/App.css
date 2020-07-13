@@ -11,3 +11,27 @@ body {
   flex-direction: column;
   display: flex;
 }
+
+.progress-bar-1 .progress-bar {
+  background-color: blue !important;
+}
+
+.progress-bar-2 .progress-bar {
+  background-color: blueviolet !important;
+}
+
+.progress-bar-3 .progress-bar {
+  background-color: black !important;
+}
+
+.progress-bar-4 .progress-bar {
+  background-color: red !important;
+}
+
+.progress-bar-5 .progress-bar {
+  background-color: orange !important;
+}
+
+.progress-bar-6 .progress-bar {
+  background-color: green !important;
+}

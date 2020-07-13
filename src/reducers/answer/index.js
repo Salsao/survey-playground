@@ -47,7 +47,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         allIds: [...new Set([...state.allIds, payload.id])],
-        byId: { ...state.byId, [payload.id]: payload },
+        byId: { ...state.byId, [payload[0]?.surveyId]: payload },
         isFetching: false
       };
     case types.ERROR: {
