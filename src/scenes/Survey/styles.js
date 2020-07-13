@@ -49,12 +49,16 @@ export const SpanShare = styled.span`
 
 export const ShareContainer = styled.div``;
 
-export const EditContainer = styled.div`
+export const LinksContainer = styled.div`
   font-weight: 400;
 
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const LinkSpan = styled.span`
+  margin-left: 5px;
 `;
 
 export const EditAnswerContainer = styled.div`

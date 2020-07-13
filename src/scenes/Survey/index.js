@@ -116,7 +116,10 @@ const Survey = () => {
                 <S.CopyIcon src={copy} width="15" height="15" alt="copy" onClick={onHandleCopy} />
               </OverlayTrigger>
             </S.ShareContainer>
-            <S.EditContainer onClick={() => history.push(`${SURVEYS_PATH}/${id}/edit`)}>Edit</S.EditContainer>
+            <S.LinksContainer>
+              <S.LinkSpan onClick={() => history.push(`${SURVEYS_PATH}/${id}/results`)}>Results</S.LinkSpan>
+              <S.LinkSpan onClick={() => history.push(`${SURVEYS_PATH}/${id}/edit`)}>Edit</S.LinkSpan>
+            </S.LinksContainer>
           </S.DivShare>
         )}
       </S.Box>

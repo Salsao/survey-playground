@@ -58,14 +58,18 @@ const SurveyResults = () => {
             })}
           </Form>
         )}
-        <S.VotesById>Votes (click to see and edit):</S.VotesById>
-        <S.VotesList>
-          {answers?.map((answer, index) => (
-            <S.VoteLink key={answer.id} onClick={() => history.push(`${SURVEYS_PATH}/${id}/results/${answer.id}`)}>
-              {index + 1}
-            </S.VoteLink>
-          ))}
-        </S.VotesList>
+        {answers?.length > 0 && (
+          <>
+            <S.VotesById>Votes (click to see and edit):</S.VotesById>
+            <S.VotesList>
+              {answers?.map((answer, index) => (
+                <S.VoteLink key={answer.id} onClick={() => history.push(`${SURVEYS_PATH}/${id}/results/${answer.id}`)}>
+                  {index + 1}
+                </S.VoteLink>
+              ))}
+            </S.VotesList>
+          </>
+        )}
       </S.Box>
     </>
   );
