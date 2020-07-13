@@ -20,6 +20,7 @@ const App = () => (
     <Header />
     <Switch>
       <Route path={`${SURVEYS_PATH}/:id/edit`} component={SurveyAdmin} />
+      <Route path={`${SURVEYS_PATH}/:id/results/:answerId`} component={Survey} />
       <Route path={`${SURVEYS_PATH}/:id/results`} component={SurveyResults} />
       <Route path={`${SURVEYS_PATH}/:id`} component={Survey} />
       <Route exact path={SURVEYS_PATH} component={SurveyAdmin} />

@@ -16,21 +16,33 @@ import * as S from './styles';
 
 const Survey = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id, answerId } = useParams();
   const history = useHistory();
   const survey = useSelector(state => state.survey.byId[id]);
   const surveyError = useSelector(state => state.survey.error);
   const isFetching = useSelector(state => state.survey.isFetching);
   const answered = useSelector(state => state.answer.answered);
+  const answer = useSelector(state => state.answer.byId[answerId]);
   const [formAnswer, setFormAnswer] = useState('');
 
   useEffect(() => {
     const onLoadPage = () => {
       dispatch(surveyActions.getRequest(id));
+      if (answerId) {
+        dispatch(answerActions.getOneRequest(answerId));
+      }
     };
     onLoadPage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const onLoadAnswer = () => {
+      setFormAnswer(answer?.answer);
+    };
+    onLoadAnswer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [answer]);
 
   const onHandleCopy = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -70,10 +82,11 @@ const Survey = () => {
         <Form>
           {survey?.options.map(option => (
             <Form.Check
+              key={option.id}
               type="radio"
               name="surveyAnswer"
               label={option.answer}
-              key={option.id}
+              checked={formAnswer === option.id}
               onChange={() => setFormAnswer(option.id)}
             />
           ))}
@@ -83,15 +96,17 @@ const Survey = () => {
             </Button>
           </S.DivSubmit>
         </Form>
-        <S.DivShare>
-          <S.ShareContainer>
-            <S.SpanShare>Share with your friends:</S.SpanShare> {window.location.href}{' '}
-            <OverlayTrigger placement="top" overlay={<Tooltip>Copy to your clipboard!</Tooltip>}>
-              <S.CopyIcon src={copy} width="15" height="15" alt="copy" onClick={onHandleCopy} />
-            </OverlayTrigger>
-          </S.ShareContainer>
-          <S.EditContainer onClick={() => history.push(`${SURVEYS_PATH}/${id}/edit`)}>Edit</S.EditContainer>
-        </S.DivShare>
+        {!answerId && (
+          <S.DivShare>
+            <S.ShareContainer>
+              <S.SpanShare>Share with your friends:</S.SpanShare> {window.location.href}{' '}
+              <OverlayTrigger placement="top" overlay={<Tooltip>Copy to your clipboard!</Tooltip>}>
+                <S.CopyIcon src={copy} width="15" height="15" alt="copy" onClick={onHandleCopy} />
+              </OverlayTrigger>
+            </S.ShareContainer>
+            <S.EditContainer onClick={() => history.push(`${SURVEYS_PATH}/${id}/edit`)}>Edit</S.EditContainer>
+          </S.DivShare>
+        )}
       </S.Box>
     </>
   );
