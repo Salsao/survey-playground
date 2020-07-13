@@ -9,15 +9,17 @@ import { toast } from 'react-toastify';
 
 import Loader from '../../components/Loader';
 import { actions as surveyActions } from '../../reducers/survey';
+import { actions as answerActions } from '../../reducers/answer';
 import copy from '../../assets/icons/copy.svg';
 import * as S from './styles';
 
 const Survey = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const survey = useSelector((state) => state.survey.byId[id]);
-  const surveyError = useSelector((state) => state.survey.error);
-  const isFetching = useSelector((state) => state.survey.isFetching);
+  const survey = useSelector(state => state.survey.byId[id]);
+  const surveyError = useSelector(state => state.survey.error);
+  const isFetching = useSelector(state => state.survey.isFetching);
+  const answered = useSelector(state => state.answer.answered);
   const [formAnswer, setFormAnswer] = useState('');
 
   useEffect(() => {
@@ -38,13 +40,21 @@ const Survey = () => {
       toast.error('Please fill the survey with your answer');
       return;
     }
-    dispatch(surveyActions.postAnswerRequest(id));
+    dispatch(answerActions.createRequest({ answer: formAnswer, surveyId: parseInt(id, 10) }));
   };
 
   if (surveyError?.message) {
     return (
       <S.Box>
         <S.Title>{surveyError.message}</S.Title>
+      </S.Box>
+    );
+  }
+
+  if (answered) {
+    return (
+      <S.Box>
+        <S.Title>Thanks for the answer!</S.Title>
       </S.Box>
     );
   }
@@ -56,7 +66,7 @@ const Survey = () => {
         <S.Title>{survey?.title}</S.Title>
         <S.Description>{survey?.description}</S.Description>
         <Form>
-          {survey?.options.map((option) => (
+          {survey?.options.map(option => (
             <Form.Check
               type="radio"
               name="surveyAnswer"

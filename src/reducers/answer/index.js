@@ -1,4 +1,4 @@
-const NAME = 'SURVEY';
+const NAME = 'ANSWER';
 
 export const types = {
   CREATE_REQUEST: `${NAME}/CREATE_REQUEST`,
@@ -19,6 +19,7 @@ export const actions = {
 const initialState = {
   allIds: [],
   byId: {},
+  answered: false,
   isFetching: false,
   error: {}
 };
@@ -31,6 +32,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: true,
+        answered: false,
         error: {}
       };
     case types.CREATE:
@@ -38,6 +40,7 @@ export default (state = initialState, action) => {
         ...state,
         allIds: [...new Set([...state.allIds, payload.id])],
         byId: { ...state.byId, [payload.id]: payload },
+        answered: true,
         isFetching: false
       };
     case types.SET:
