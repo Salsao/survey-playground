@@ -31,3 +31,20 @@ export const Votes = styled.h6`
 export const DivProgress = styled.div`
   margin-top: 20px;
 `;
+
+export const VotesList = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+`;
+
+export const VotesById = styled.div`
+  margin-top: 20px;
+  font-weight: 600;
+`;
+
+export const VoteLink = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
+`;
