@@ -23,7 +23,7 @@ function* get(action) {
     const response = yield call(getOne, payload);
     yield put(surveyActions.set(response.data));
   } catch (error) {
-    yield put(surveyActions.error(error));
+    yield put(surveyActions.error({ ...error, message: 'There is no survey with this id' }));
   }
 }
 

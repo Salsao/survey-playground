@@ -16,6 +16,7 @@ const Survey = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const survey = useSelector((state) => state.survey.byId[id]);
+  const surveyError = useSelector((state) => state.survey.error);
   const isFetching = useSelector((state) => state.survey.isFetching);
   const [formAnswer, setFormAnswer] = useState('');
 
@@ -39,6 +40,14 @@ const Survey = () => {
     }
     // dispatch(surveyActions.postAnswerRequest(id));
   };
+
+  if (surveyError?.message) {
+    return (
+      <S.Box>
+        <S.Title>{surveyError.message}</S.Title>
+      </S.Box>
+    );
+  }
 
   return (
     <>

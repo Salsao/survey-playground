@@ -20,6 +20,7 @@ const initialState = {
   allIds: [],
   byId: {},
   isFetching: false,
+  error: {},
 };
 
 export default (state = initialState, action) => {
@@ -30,6 +31,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: true,
+        error: {},
       };
     case types.CREATE:
       return {
@@ -48,6 +50,7 @@ export default (state = initialState, action) => {
     case types.ERROR: {
       return {
         ...state,
+        error: payload,
         isFetching: false,
       };
     }
