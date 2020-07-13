@@ -100,7 +100,7 @@ const SurveyAdmin = () => {
     <>
       {isFetching && <Loader />}
       <S.Box>
-        <S.Title>New survey</S.Title>
+        <S.Title>{id ? 'Edit' : 'New'} survey</S.Title>
         <S.DivForm>
           <Form>
             <Form.Group controlId="formTitle">

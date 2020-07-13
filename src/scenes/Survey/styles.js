@@ -34,11 +34,10 @@ export const DivShare = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const CopyIcon = styled.img`
-  margin-left: 10px;
-
   &:hover {
     cursor: pointer;
   }
@@ -46,5 +45,14 @@ export const CopyIcon = styled.img`
 
 export const SpanShare = styled.span`
   font-weight: 600;
-  margin-right: 5px;
+`;
+
+export const ShareContainer = styled.div``;
+
+export const EditContainer = styled.div`
+  font-weight: 400;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
