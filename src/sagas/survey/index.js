@@ -1,6 +1,6 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { types, actions as surveyActions } from '../../reducers/survey';
-import { post, getOne } from '../../api/survey';
+import { post, getOne, putOne } from '../../api/survey';
 import { SURVEYS_PATH } from '../../constants';
 
 function* create(action) {
@@ -26,7 +26,21 @@ function* get(action) {
   }
 }
 
+function* update(action) {
+  try {
+    const {
+      payload: { formSurvey, history }
+    } = action;
+    const response = yield call(putOne, formSurvey);
+    yield put(surveyActions.set(response.data));
+    history.push(`${SURVEYS_PATH}/${response.data.id}`);
+  } catch (error) {
+    yield put(surveyActions.error(error));
+  }
+}
+
 export default function* watchSurvey() {
   yield takeEvery(types.CREATE_REQUEST, create);
   yield takeEvery(types.GET_REQUEST, get);
+  yield takeEvery(types.UPDATE_REQUEST, update);
 }
