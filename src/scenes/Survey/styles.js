@@ -56,3 +56,13 @@ export const EditContainer = styled.div`
     cursor: pointer;
   }
 `;
+
+export const EditAnswerContainer = styled.div`
+  font-weight: 400;
+  display: flex;
+  justify-content: flex-end;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;

@@ -44,7 +44,10 @@ const SurveyResults = () => {
         {answers?.length > 0 && (
           <Form>
             {survey?.options.map((option, index) => {
-              const percentage = (answers?.filter(answer => answer.answer === option.id).length * 100) / answers?.length;
+              const percentage = (
+                (answers?.filter(answer => answer.answer === option.id).length * 100) /
+                answers?.length
+              ).toFixed(2);
               return (
                 <S.DivProgress key={option.id}>
                   <ProgressBar className={`progress-bar-${index + 1}`} striped label={`${percentage}%`} now={percentage} />

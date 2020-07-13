@@ -7,6 +7,7 @@ export const types = {
   GET_ONE_REQUEST: `${NAME}/GET_ONE_REQUEST`,
   SET: `${NAME}/SET`,
   SET_ONE: `${NAME}/SET_ONE`,
+  UPDATE_REQUEST: `${NAME}/UPDATE_REQUEST`,
   ERROR: `${NAME}/ERROR`
 };
 
@@ -17,6 +18,7 @@ export const actions = {
   getOneRequest: payload => ({ type: types.GET_ONE_REQUEST, payload }),
   set: payload => ({ type: types.SET, payload }),
   setOne: payload => ({ type: types.SET_ONE, payload }),
+  updateRequest: payload => ({ type: types.UPDATE_REQUEST, payload }),
   error: payload => ({ type: types.ERROR, payload })
 };
 
@@ -34,6 +36,7 @@ export default (state = initialState, action) => {
     case types.CREATE_REQUEST:
     case types.GET_REQUEST:
     case types.GET_ONE_REQUEST:
+    case types.UPDATE_REQUEST:
       return {
         ...state,
         isFetching: true,
@@ -45,7 +48,7 @@ export default (state = initialState, action) => {
         ...state,
         allIds: [...new Set([...state.allIds, payload.id])],
         byId: { ...state.byId, [payload.id]: payload },
-        answered: true,
+        answered: payload.id,
         isFetching: false
       };
     case types.SET:

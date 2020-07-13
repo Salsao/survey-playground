@@ -24,6 +24,7 @@ const Survey = () => {
   const answered = useSelector(state => state.answer.answered);
   const answer = useSelector(state => state.answer.byId[answerId]);
   const [formAnswer, setFormAnswer] = useState('');
+  const [editAnswer, setEditAnswer] = useState(false);
 
   useEffect(() => {
     const onLoadPage = () => {
@@ -54,7 +55,17 @@ const Survey = () => {
       toast.error('Please fill the survey with your answer');
       return;
     }
-    dispatch(answerActions.createRequest({ answer: formAnswer, surveyId: parseInt(id, 10) }));
+    if (answerId) {
+      dispatch(answerActions.updateRequest({ answer: formAnswer, id: answerId }));
+    } else {
+      dispatch(answerActions.createRequest({ answer: formAnswer, surveyId: parseInt(id, 10) }));
+    }
+    setEditAnswer(false);
+  };
+
+  const onHandleEdit = () => {
+    history.push(`${SURVEYS_PATH}/${id}/results/${answered}`);
+    setEditAnswer(true);
   };
 
   if (surveyError?.message) {
@@ -65,10 +76,11 @@ const Survey = () => {
     );
   }
 
-  if (answered) {
+  if (answered && !editAnswer) {
     return (
       <S.Box>
         <S.Title>Thanks for the answer!</S.Title>
+        <S.EditAnswerContainer onClick={onHandleEdit}>Edit answer</S.EditAnswerContainer>
       </S.Box>
     );
   }
