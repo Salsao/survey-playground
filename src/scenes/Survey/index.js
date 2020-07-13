@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
@@ -15,6 +15,7 @@ const Survey = () => {
   const { id } = useParams();
   const survey = useSelector((state) => state.survey.byId[id]);
   const isFetching = useSelector((state) => state.survey.isFetching);
+  const [formAnswer, setFormAnswer] = useState('');
 
   useEffect(() => {
     const onLoadPage = () => {
@@ -29,6 +30,14 @@ const Survey = () => {
     toast.success('Copied!');
   };
 
+  const onHandleSubmit = () => {
+    if (!formAnswer) {
+      toast.error('Please fill the survey with your answer');
+      return;
+    }
+    // dispatch(surveyActions.postAnswerRequest(id));
+  };
+
   return (
     <>
       {isFetching && <Loader />}
@@ -37,16 +46,22 @@ const Survey = () => {
         <S.Description>{survey?.description}</S.Description>
         <Form>
           {survey?.options.map((option) => (
-            <Form.Check type="radio" name="surveyAnswer" label={option.answer} key={option.id} />
+            <Form.Check
+              type="radio"
+              name="surveyAnswer"
+              label={option.answer}
+              key={option.id}
+              onChange={() => setFormAnswer(option.id)}
+            />
           ))}
           <S.DivSubmit>
-            <Button variant="success" type="button" onClick={() => console.log('submit')}>
+            <Button variant="success" type="button" onClick={onHandleSubmit}>
               Submit
             </Button>
           </S.DivSubmit>
         </Form>
         <S.DivShare>
-          Share with your friends: {window.location.href}{' '}
+          <S.SpanShare>Share with your friends:</S.SpanShare> {window.location.href}{' '}
           <S.CopyIcon src={copy} width="15" height="15" alt="copy" onClick={onHandleCopy} />
         </S.DivShare>
       </S.Box>

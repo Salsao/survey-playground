@@ -43,3 +43,8 @@ export const CopyIcon = styled.img`
     cursor: pointer;
   }
 `;
+
+export const SpanShare = styled.span`
+  font-weight: 600;
+  margin-right: 5px;
+`;
