@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import { toast } from 'react-toastify';
 
 import Loader from '../../components/Loader';
@@ -62,7 +64,9 @@ const Survey = () => {
         </Form>
         <S.DivShare>
           <S.SpanShare>Share with your friends:</S.SpanShare> {window.location.href}{' '}
-          <S.CopyIcon src={copy} width="15" height="15" alt="copy" onClick={onHandleCopy} />
+          <OverlayTrigger placement="top" overlay={<Tooltip>Copy to your clipboard!</Tooltip>}>
+            <S.CopyIcon src={copy} width="15" height="15" alt="copy" onClick={onHandleCopy} />
+          </OverlayTrigger>
         </S.DivShare>
       </S.Box>
     </>
