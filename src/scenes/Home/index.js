@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { actions as surveyActions } from '../../reducers/survey';
+import { actions as userActions } from '../../reducers/user';
 import { SURVEYS_PATH, REGISTER_PATH } from '../../constants';
 import * as S from './styles';
 
@@ -12,6 +13,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const surveyAllIds = useSelector(state => state.survey.allIds);
   const surveyById = useSelector(state => state.survey.byId);
+  const currentUser = useSelector(state => state.user);
 
   useEffect(() => {
     const onLoadPage = () => {
@@ -20,6 +22,11 @@ const Home = () => {
     onLoadPage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const onHandleLogout = () => {
+    dispatch(userActions.logoutRequest());
+  };
+
   return (
     <>
       <S.Div>
@@ -36,7 +43,14 @@ const Home = () => {
         })}
       </S.SurveyList>
       <S.Div>
-        <Button onClick={() => history.push(REGISTER_PATH)}>Register</Button>
+        {currentUser?.username ? (
+          <Button onClick={onHandleLogout}>Logout</Button>
+        ) : (
+          <>
+            <Button onClick={() => history.push(REGISTER_PATH)}>Login</Button>
+            <Button onClick={() => history.push(REGISTER_PATH)}>Register</Button>
+          </>
+        )}
       </S.Div>
     </>
   );

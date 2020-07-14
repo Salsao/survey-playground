@@ -18,6 +18,16 @@ function* register(action) {
   }
 }
 
+function* logout() {
+  try {
+    yield put(userActions.logout());
+    saveState({}, 'user');
+  } catch (error) {
+    yield put(userActions.error(error));
+  }
+}
+
 export default function* watchUser() {
   yield takeEvery(types.REGISTER_REQUEST, register);
+  yield takeEvery(types.LOGOUT_REQUEST, logout);
 }
