@@ -52,7 +52,12 @@ const SurveyResults = () => {
               ).toFixed(2);
               return (
                 <S.DivProgress key={option.id}>
-                  <ProgressBar className={`progress-bar-${index + 1}`} striped label={`${percentage}%`} now={percentage} />
+                  <ProgressBar
+                    className={`progress-bar-${index + 1}`}
+                    striped
+                    label={`${option.answer} - ${percentage}%`}
+                    now={percentage}
+                  />
                 </S.DivProgress>
               );
             })}

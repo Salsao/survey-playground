@@ -54,7 +54,7 @@ export default (state = initialState, action) => {
     case types.SET:
       return {
         ...state,
-        allIds: [...new Set([...state.allIds, payload.id])],
+        allIds: [...new Set([...state.allIds, payload[0]?.surveyId])],
         byId: { ...state.byId, [payload[0]?.surveyId]: payload },
         isFetching: false
       };

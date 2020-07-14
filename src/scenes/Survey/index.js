@@ -24,7 +24,7 @@ const Survey = () => {
   const answered = useSelector(state => state.answer.answered);
   const answer = useSelector(state => state.answer.byId[answerId]);
   const [formAnswer, setFormAnswer] = useState('');
-  const [editAnswer, setEditAnswer] = useState(false);
+  const [editAnswer, setEditAnswer] = useState(true);
 
   useEffect(() => {
     const onLoadPage = () => {
@@ -56,7 +56,7 @@ const Survey = () => {
       return;
     }
     if (answerId) {
-      dispatch(answerActions.updateRequest({ answer: formAnswer, id: answerId }));
+      dispatch(answerActions.updateRequest({ answer: formAnswer, id: answerId, surveyId: parseInt(id, 10) }));
     } else {
       dispatch(answerActions.createRequest({ answer: formAnswer, surveyId: parseInt(id, 10) }));
     }
