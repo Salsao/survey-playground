@@ -7,9 +7,23 @@ import { HOME_PATH } from '../../constants';
 function* register(action) {
   try {
     const {
-      payload: { formRegister, history }
+      payload: { formAuth, history }
     } = action;
-    const response = yield call(post, formRegister);
+    const response = yield call(post, formAuth);
+    yield put(userActions.set(response.data));
+    saveState(response.data, 'user');
+    history.push(HOME_PATH);
+  } catch (error) {
+    yield put(userActions.error(error));
+  }
+}
+
+function* login(action) {
+  try {
+    const {
+      payload: { formAuth, history }
+    } = action;
+    const response = yield call(post, formAuth);
     yield put(userActions.set(response.data));
     saveState(response.data, 'user');
     history.push(HOME_PATH);
@@ -29,5 +43,6 @@ function* logout() {
 
 export default function* watchUser() {
   yield takeEvery(types.REGISTER_REQUEST, register);
+  yield takeEvery(types.LOGIN_REQUEST, login);
   yield takeEvery(types.LOGOUT_REQUEST, logout);
 }

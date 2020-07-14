@@ -12,6 +12,10 @@ body {
   display: flex;
 }
 
+.mr-20 {
+  margin-right: 20px;
+}
+
 .progress-bar-1 .progress-bar {
   background-color: blue !important;
 }

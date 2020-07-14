@@ -2,46 +2,53 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import Loader from '../../components/Loader';
 import { actions as userActions } from '../../reducers/user';
 import * as S from './styles';
+import { LOGIN_PATH } from '../../constants';
 
-const Register = () => {
+const Auth = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+  const isLogin = location.pathname === LOGIN_PATH;
   const isFetching = useSelector(state => state.survey.isFetching);
-  const [formRegister, setFormRegister] = useState({
+  const [formAuth, setFormAuth] = useState({
     username: '',
     password: ''
   });
 
   const handleInputChange = (name, value) => {
-    setFormRegister({ ...formRegister, [name]: value });
+    setFormAuth({ ...formAuth, [name]: value });
   };
 
   const onHandleSubmit = () => {
     const errors = [];
-    if (!formRegister?.username) {
+    if (!formAuth?.username) {
       errors.push('username');
     }
-    if (!formRegister?.password) {
+    if (!formAuth?.password) {
       errors.push('password');
     }
     if (errors.length) {
       toast.error(`Please fill the remaining empty fields: ${errors.join(', ')}`);
       return;
     }
-    dispatch(userActions.registerRequest({ formRegister, history }));
+    if (isLogin) {
+      dispatch(userActions.loginRequest({ formAuth, history }));
+    } else {
+      dispatch(userActions.registerRequest({ formAuth, history }));
+    }
   };
 
   return (
     <>
       {isFetching && <Loader />}
       <S.Box>
-        <S.Title>Register</S.Title>
+        <S.Title>{isLogin ? 'Login' : 'Register'}</S.Title>
         <S.DivForm>
           <Form>
             <Form.Group controlId="formUsername">
@@ -50,7 +57,7 @@ const Register = () => {
                 type="text"
                 placeholder="Username (can be e-mail)"
                 maxLength={50}
-                value={formRegister.username}
+                value={formAuth.username}
                 onChange={e => handleInputChange('username', e.currentTarget.value)}
               />
             </Form.Group>
@@ -61,7 +68,7 @@ const Register = () => {
                 type="password"
                 placeholder="Password"
                 maxLength={20}
-                value={formRegister.password}
+                value={formAuth.password}
                 onChange={e => handleInputChange('password', e.currentTarget.value)}
               />
             </Form.Group>
@@ -77,4 +84,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Auth;

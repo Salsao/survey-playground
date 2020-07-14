@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { actions as surveyActions } from '../../reducers/survey';
 import { actions as userActions } from '../../reducers/user';
-import { SURVEYS_PATH, REGISTER_PATH } from '../../constants';
+import { SURVEYS_PATH, REGISTER_PATH, LOGIN_PATH } from '../../constants';
 import * as S from './styles';
 
 const Home = () => {
@@ -47,7 +47,9 @@ const Home = () => {
           <Button onClick={onHandleLogout}>Logout</Button>
         ) : (
           <>
-            <Button onClick={() => history.push(REGISTER_PATH)}>Login</Button>
+            <Button className="mr-20" onClick={() => history.push(LOGIN_PATH)}>
+              Login
+            </Button>
             <Button onClick={() => history.push(REGISTER_PATH)}>Register</Button>
           </>
         )}
