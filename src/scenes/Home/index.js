@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { actions as surveyActions } from '../../reducers/survey';
-import { SURVEYS_PATH } from '../../constants';
+import { SURVEYS_PATH, REGISTER_PATH } from '../../constants';
 import * as S from './styles';
 
 const Home = () => {
@@ -35,6 +35,9 @@ const Home = () => {
           );
         })}
       </S.SurveyList>
+      <S.Div>
+        <Button onClick={() => history.push(REGISTER_PATH)}>Register</Button>
+      </S.Div>
     </>
   );
 };

@@ -42,7 +42,7 @@ function* update(action) {
   }
 }
 
-export default function* watchSurvey() {
+export default function* watchAnswer() {
   yield takeEvery(types.CREATE_REQUEST, create);
   yield takeEvery(types.GET_REQUEST, get);
   yield takeEvery(types.GET_ONE_REQUEST, getOneRequest);

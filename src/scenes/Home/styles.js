@@ -10,6 +10,7 @@ export const SurveyList = styled.div`
   align-self: center;
   flex-wrap: wrap;
   margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 export const Box = styled.div`

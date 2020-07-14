@@ -12,7 +12,7 @@ const rootReducer = (state, action) => {
   if (action.type === types.LOGOUT) {
     return reducers(
       {
-        ...state,
+        ...state
       },
       action
     );
@@ -23,7 +23,7 @@ const rootReducer = (state, action) => {
 const store = createStore(
   rootReducer,
   { user },
-  compose(applyMiddleware(sagaMiddleware), window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f)
+  compose(applyMiddleware(sagaMiddleware), window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f)
 );
 
 sagaMiddleware.run(rootSaga);

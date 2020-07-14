@@ -1,11 +1,20 @@
-import { takeEvery } from 'redux-saga/effects';
-import { types } from '../../reducers/user';
+import { takeEvery, call, put } from 'redux-saga/effects';
+import { types, actions as userActions } from '../../reducers/user';
+import { post } from '../../api/user';
+import { saveState } from '../../utils/statePersistence';
+import { HOME_PATH } from '../../constants';
 
-function* register() {
+function* register(action) {
   try {
-    console.log('try');
+    const {
+      payload: { formRegister, history }
+    } = action;
+    const response = yield call(post, formRegister);
+    yield put(userActions.set(response.data));
+    saveState(response.data, 'user');
+    history.push(HOME_PATH);
   } catch (error) {
-    console.log(error);
+    yield put(userActions.error(error));
   }
 }
 

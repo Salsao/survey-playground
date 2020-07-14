@@ -86,7 +86,7 @@ const SurveyAdmin = () => {
       }
     });
     if (errors.length) {
-      toast.error(`Please fill the remaining empty fields: ${errors.join(',')}`);
+      toast.error(`Please fill the remaining empty fields: ${errors.join(', ')}`);
       return;
     }
     if (id) {
