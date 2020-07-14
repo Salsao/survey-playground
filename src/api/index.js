@@ -4,10 +4,11 @@ import { BASE_URL_API } from '../constants';
 
 const api = axios.create({
   baseURL: BASE_URL_API,
-  responseType: 'json',
+  responseType: 'json'
 });
 
-api.interceptors.request.use(async (config) => {
+api.interceptors.request.use(async config => {
+  // token - not being used now
   const token = getToken();
   if (token) {
     // eslint-disable-next-line no-param-reassign
